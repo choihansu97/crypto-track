@@ -1,5 +1,15 @@
+import GlobalStyles from "./globalStyles";
+import React from "react";
+import {RouterProvider} from "react-router-dom";
+import router from "./routes";
+
 function App() {
-    return (<>1</>)
+    return (
+        <>
+            <GlobalStyles/>
+            <RouterProvider router={router}/>
+        </>
+    )
 }
 
 export default App
