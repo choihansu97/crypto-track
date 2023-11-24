@@ -3,8 +3,10 @@ import reset from "styled-reset";
 
 const GlobalStyles = createGlobalStyle`
     ${reset}
-
-    ;
+    body {
+        background: ${({theme}) => theme.backgroundColor};
+        color: ${({theme}) => theme.textColor};
+    }
 
     * {
         box-sizing: border-box;
