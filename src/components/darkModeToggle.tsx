@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export default function DarkModeToggle({ toggle, mode }) {
+export default function DarkModeToggle({toggle, mode}) {
     return (
         <ToggleWrapper onClick={toggle} mode={mode}>
             {mode === 'dark' ? '🌙' : '☀'}
@@ -24,4 +24,5 @@ const ToggleWrapper = styled.button`
     width: 96px;
     height: 48px;
     border-radius: 30px;
+    cursor: pointer;
 `;
