@@ -1,8 +1,8 @@
 import {Link} from "react-router-dom";
 import styled from "styled-components";
-import {useState, useEffect} from "react";
 import {fetchCoinList} from "../apis/api";
 import Loading from "../components/loading";
+import {useQuery} from "@tanstack/react-query";
 
 interface ICoin {
     id: string,
@@ -15,23 +15,7 @@ interface ICoin {
 }
 
 export default function Main() {
-    const [coins, setCoins] = useState<ICoin[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const result = await fetchCoinList();
-                setCoins(result.slice(0, 100));
-                setIsLoading(false);
-            } catch (error) {
-                console.error(`불러올 수 있는 데이터가 없습니다.${error}`);
-                setIsLoading(false);
-            }
-        };
-
-        fetchData();
-    }, []);
+    const { isLoading, data } = useQuery<ICoin>({ queryKey: ["allCoins"], queryFn: fetchCoinList });
 
     return (
         <Wrapper>
@@ -43,11 +27,11 @@ export default function Main() {
                 <Loading/>
             ) : (
                 <ContentList>
-                    {coins.map((coin) => (
+                    {data?.slice(0, 100).map((coin) => (
                         <Coin key={coin.id}>
                             <Link
                                 to={`/coin-view/${coin.id}`}
-                                state={{name: coin.name}}
+                                state={coin}
                             >
                                 {coin.name}
                             </Link>
