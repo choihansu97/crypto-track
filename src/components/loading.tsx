@@ -13,8 +13,9 @@ export default function Loading() {
     )
 }
 
-const Wrapper = styled.div `
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const Wrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 81px);
 `;
