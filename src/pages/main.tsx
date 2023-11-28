@@ -29,7 +29,7 @@ export default function Main() {
                                 state={coin.id}
                             >
                                 <Img
-                                    src={`https://coinicons-api.vercel.app/api/icon/{coin.symbol.toLowerCase()}`}
+                                    src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}
                                     alt={coin.name}/>
                                 {coin.name}
                             </Link>
@@ -56,6 +56,7 @@ const Wrapper = styled.article`
 const ContentList = styled.ul`
     display: flex;
     flex-direction: column;
+    gap: 24px;
     width: 100%;
 `;
 
