@@ -7,6 +7,12 @@ export const fetchCoinList = async () => {
     return data;
 };
 
+export const fetchCoinInfo = async (coinId) => {
+    const response = await fetch(`${BASE_URL}/coins/${coinId}`);
+    const data = response.json();
+    return data;
+}
+
 export const getCoinPriceData = async (coinId) => {
     const response = await fetch(`${BASE_URL}/tickers/${coinId}`);
     const data = response.json();
