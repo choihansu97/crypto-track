@@ -35,7 +35,7 @@ export default function Chart(props: ChartProps) {
                     series={[
                         {
                             name: "Price",
-                            data: data?.map(price => parseFloat(price.close)) ?? [],
+                            data: Array.isArray(data) ? data.map(price => parseFloat(price.close)) : [],
                         },
                     ]}
                     options={{
