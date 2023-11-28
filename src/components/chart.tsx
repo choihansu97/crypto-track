@@ -5,8 +5,8 @@ import ApexChart from 'react-apexcharts';
 import {darkTheme} from "../theme/theme";
 
 interface ChartProps {
-    coinId: string;
-};
+    state: string;
+}
 
 interface IHistorical {
     time_open: string;
@@ -17,12 +17,12 @@ interface IHistorical {
     close: string;
     volume: number;
     market_cap: number;
-};
+}
 
-export default function Chart({props}: ChartProps) {
+export default function Chart(props: ChartProps) {
     const {isLoading, data} = useQuery<IHistorical[]>({
-        queryKey: ["ohlcv", 'btc-bitcoin'],
-        queryFn: () => getCoinChartData('btc-bitcoin'),
+        queryKey: ["ohlcv", props.state],
+        queryFn: () => getCoinChartData(props.state),
         refetchInterval: 100000
     });
 

@@ -3,6 +3,7 @@ import {useParams, useLocation} from 'react-router-dom';
 import {useQuery} from "@tanstack/react-query";
 import {fetchCoinInfo, getCoinPriceData} from "../apis/api";
 import Loading from "../components/loading";
+import Chart from "../components/chart";
 
 export default function CoinView() {
     const {coinId} = useParams();
@@ -22,13 +23,17 @@ export default function CoinView() {
     } = useQuery({
         queryKey: ["tickers", coinId],
         queryFn: () => getCoinPriceData(state),
-        refetchInterval: 50000000,
+        // refetchInterval: 500000000000000,
     });
 
     const loading = infoLoading || tickersLoading;
 
     return (
-        loading ? <Loading/> :
+        <>
+            <Helmet>
+
+            </Helmet>
+            loading ? <Loading/> :
             <Wrapper>
                 <Title>Coin infomation</Title>
 
@@ -46,7 +51,7 @@ export default function CoinView() {
 
                         <InnerDiv>
                             <SubTitle>PRICE</SubTitle>
-                            <ContentInfo>{infoData?.quotes?.USD?.price?.toFixed(3)}</ContentInfo>
+                            <ContentInfo>{tickersData?.quotes?.USD?.price?.toFixed(3)}</ContentInfo>
                         </InnerDiv>
                     </ContentItem>
 
@@ -69,8 +74,10 @@ export default function CoinView() {
 
                 <TapWrapper>
                     <TapMenu>메뉴1</TapMenu>
+                    <Chart state={state}/>
                 </TapWrapper>
             </Wrapper>
+        </>
     )
 }
 
