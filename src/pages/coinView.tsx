@@ -4,6 +4,7 @@ import {useQuery} from "@tanstack/react-query";
 import {fetchCoinInfo, getCoinPriceData} from "../apis/api";
 import Loading from "../components/loading";
 import Chart from "../components/chart";
+import {Helmet} from "react-helmet";
 
 export default function CoinView() {
     const {coinId} = useParams();
@@ -31,52 +32,56 @@ export default function CoinView() {
     return (
         <>
             <Helmet>
-
+                <title>
+                    {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
+                </title>
             </Helmet>
-            loading ? <Loading/> :
-            <Wrapper>
-                <Title>Coin infomation</Title>
 
-                <Content>
-                    <ContentItem>
-                        <InnerDiv>
-                            <SubTitle>RANK</SubTitle>
-                            <ContentInfo>{infoData?.rank}</ContentInfo>
-                        </InnerDiv>
+            {loading ? <Loading/> :
+                <Wrapper>
+                    <Title>Coin infomation</Title>
 
-                        <InnerDiv>
-                            <SubTitle>SYMBOL</SubTitle>
-                            <ContentInfo>{infoData?.symbol}</ContentInfo>
-                        </InnerDiv>
+                    <Content>
+                        <ContentItem>
+                            <InnerDiv>
+                                <SubTitle>RANK</SubTitle>
+                                <ContentInfo>{infoData?.rank}</ContentInfo>
+                            </InnerDiv>
 
-                        <InnerDiv>
-                            <SubTitle>PRICE</SubTitle>
-                            <ContentInfo>{tickersData?.quotes?.USD?.price?.toFixed(3)}</ContentInfo>
-                        </InnerDiv>
-                    </ContentItem>
+                            <InnerDiv>
+                                <SubTitle>SYMBOL</SubTitle>
+                                <ContentInfo>{infoData?.symbol}</ContentInfo>
+                            </InnerDiv>
 
-                    <ContentDescription>
-                        {infoData?.description}
-                    </ContentDescription>
+                            <InnerDiv>
+                                <SubTitle>PRICE</SubTitle>
+                                <ContentInfo>{tickersData?.quotes?.USD?.price?.toFixed(3)}</ContentInfo>
+                            </InnerDiv>
+                        </ContentItem>
 
-                    <ContentItem>
-                        <InnerDiv>
-                            <SubTitle>TOTAL SUPPLY</SubTitle>
-                            <ContentInfo>{tickersData?.total_supply}</ContentInfo>
+                        <ContentDescription>
+                            {infoData?.description}
+                        </ContentDescription>
 
-                        </InnerDiv>
-                        <InnerDiv>
-                            <SubTitle>MAX SUPPLY</SubTitle>
-                            <ContentInfo>{tickersData?.max_supply}</ContentInfo>
-                        </InnerDiv>
-                    </ContentItem>
-                </Content>
+                        <ContentItem>
+                            <InnerDiv>
+                                <SubTitle>TOTAL SUPPLY</SubTitle>
+                                <ContentInfo>{tickersData?.total_supply}</ContentInfo>
 
-                <TapWrapper>
-                    <TapMenu>메뉴1</TapMenu>
-                    <Chart state={state}/>
-                </TapWrapper>
-            </Wrapper>
+                            </InnerDiv>
+                            <InnerDiv>
+                                <SubTitle>MAX SUPPLY</SubTitle>
+                                <ContentInfo>{tickersData?.max_supply}</ContentInfo>
+                            </InnerDiv>
+                        </ContentItem>
+                    </Content>
+
+                    <TapWrapper>
+                        <TapMenu>메뉴1</TapMenu>
+                        <Chart state={state}/>
+                    </TapWrapper>
+                </Wrapper>
+            }
         </>
     )
 }
